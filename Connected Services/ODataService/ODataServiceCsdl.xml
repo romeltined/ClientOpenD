@@ -1,0 +1,32 @@
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:DataServices>
+    <Schema Namespace="HelloOpenData.Models" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityType Name="Reader">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="UserName" Type="Edm.String" />
+        <Property Name="EmailAddress" Type="Edm.String" />
+        <Property Name="ReaderName" Type="Edm.String" />
+        <Property Name="ReaderAddedOn" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="IsReaderActive" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+      </EntityType>
+    </Schema>
+    <Schema Namespace="Default" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <Function Name="AllReaders">
+        <ReturnType Type="Collection(HelloOpenData.Models.Reader)" />
+      </Function>
+      <Function Name="ReadersById">
+        <Parameter Name="id" Type="Edm.Int32" Nullable="false" />
+        <ReturnType Type="Collection(HelloOpenData.Models.Reader)" />
+      </Function>
+      <EntityContainer Name="Container">
+        <EntitySet Name="ODataReaders" EntityType="HelloOpenData.Models.Reader" />
+        <FunctionImport Name="AllReaders" Function="Default.AllReaders" EntitySet="ODataReaders" IncludeInServiceDocument="true" />
+        <FunctionImport Name="ReadersById" Function="Default.ReadersById" EntitySet="ODataReaders" IncludeInServiceDocument="true" />
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
